@@ -77,7 +77,7 @@ void sort(Contain* containArr, int& sum)
 
 int main()
 {
-    int sum = 0;
+    int sum{};
     Contain* containArr = nullptr;
 
     if (!read(sum, containArr))
