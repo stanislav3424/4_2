@@ -5,10 +5,10 @@
 
 struct Contain
 {
-    std::string a{};
-    std::string b{};
-    std::string c{};
-    std::string d{};
+    std::string city{};
+    std::string street{};
+    std::string house{};
+    std::string apartment{};
 };
 
 bool read(int& sum, Contain*& containArr)
@@ -23,12 +23,12 @@ bool read(int& sum, Contain*& containArr)
     inputFile >> sum;
     containArr = new Contain[sum];
 
-    for (int index = 0; index < sum; ++index)
+    for (int index{}; index < sum; ++index)
     {
-        inputFile >> containArr[index].a;
-        inputFile >> containArr[index].b;
-        inputFile >> containArr[index].c;
-        inputFile >> containArr[index].d;
+        inputFile >> containArr[index].city;
+        inputFile >> containArr[index].street;
+        inputFile >> containArr[index].house;
+        inputFile >> containArr[index].apartment;
     }
 
     inputFile.close();
@@ -45,12 +45,12 @@ bool write(int& sum, Contain*& containArr)
     }
 
     outputFile << sum << std::endl;
-    for (int index = 0; index < sum; ++index)
+    for (int index{}; index < sum; ++index)
     {
-        outputFile << containArr[index].a << ", ";
-        outputFile << containArr[index].b << ", ";
-        outputFile << containArr[index].c << ", ";
-        outputFile << containArr[index].d;
+        outputFile << containArr[index].city << ", ";
+        outputFile << containArr[index].street << ", ";
+        outputFile << containArr[index].house << ", ";
+        outputFile << containArr[index].apartment;
         outputFile << std::endl;
     }
 
@@ -58,10 +58,21 @@ bool write(int& sum, Contain*& containArr)
     return true;
 }
 
-void sort(Contain* containArr, int sum)
+void sort(Contain* containArr, int& sum)
 {
-    std::sort(containArr, containArr + sum,
-              [](const Contain& local_a, const Contain& local_b) { return local_a.a < local_b.a; });
+    for (int time{}; time < sum; ++time)
+    {
+        for (int index{}; index + 1 < sum; ++index)
+        {
+            if (containArr[index].city > containArr[index + 1].city)
+            {
+                Contain local;
+                local = containArr[index];
+                containArr[index] = containArr[index + 1];
+                containArr[index + 1] = local;
+            }
+        }
+    }
 }
 
 int main()
@@ -79,6 +90,7 @@ int main()
     if (!write(sum, containArr))
     {
         return 2;
+        delete[] containArr;
     }
 
     delete[] containArr;
