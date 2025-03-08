@@ -3,8 +3,9 @@
 #include <iostream>
 #include <string>
 
-struct Contain
+class Contain
 {
+  public:
     std::string city{};
     std::string street{};
     std::string house{};
